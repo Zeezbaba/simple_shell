@@ -9,5 +9,5 @@ Basic error handling.
 Limited functionality.
 
 # Contributors
-Okeleji Azeez
+Okeleji Azeez,
 Agboola Ayokanmi
