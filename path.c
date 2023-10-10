@@ -71,7 +71,7 @@ char *find_my_path(char **env)
  *
  * Return: void
  */
-void check_for_my_path(vars_t *vars)
+void check_path_command(vars_t *vars)
 {
 	char *my_path, *my_path_cpy = NULL, *search = NULL;
 	unsigned int x = 0, y = 0;
@@ -87,7 +87,7 @@ void check_for_my_path(vars_t *vars)
 		{
 			my_path_cpy = _strdup(my_path + 5);
 			my_path_tokens = tokenize(my_path_cpy, ":");
-			for (x = 0; mt_path_tokens && my_path_tokens[x]; x++, free(search))
+			for (x = 0; my_path_tokens && my_path_tokens[x]; x++, free(search))
 			{
 				search = _strcat(my_path_tokens[x], vars->av[0]);
 				if (stat(search, &buf) == 0)

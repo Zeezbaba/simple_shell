@@ -10,9 +10,9 @@ static void sig_handler(int uuv)
 {
 	(void) uuv;
 	if (sig_flag == 0)
-		_puts("\n$ ");
+		my_puts("\n$ ");
 	else
-		_puts("\n");
+		my_puts("\n");
 }
 
 /**

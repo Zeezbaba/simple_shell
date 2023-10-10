@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * make_env - create a shell environment from the environment passed to main
+ * env_mode - create a shell environment from the environment passed to main
  *
  * @env: environment passed to main
  *
@@ -9,7 +9,7 @@
  *
  */
 
-char **make_env(char **env)
+char **env_mode(char **env)
 {
 	char **nc_env = NULL;
 	size_t z;
@@ -26,7 +26,7 @@ char **make_env(char **env)
 	}
 
 	for (z = 0; env[z] != NULL; z++)
-		nc_env[i] = _strdup(env[z]);
+		nc_env[i] = str_dup(env[z]);
 	nc_env[z] = NULL;
 
 	return (nc_env);
@@ -34,14 +34,14 @@ char **make_env(char **env)
 }
 
 /**
- * free_env - free environment
+ * rel_env_mode - free environment
  *
  * @env: shell's environment
  *
  * Return: void
  */
 
-void free_env(char **env)
+void rel_env_mode(char **env)
 {
 	unsigned int a;
 
