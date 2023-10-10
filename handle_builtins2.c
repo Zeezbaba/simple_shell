@@ -16,7 +16,7 @@ void add_keys(vars_t *vars)
 	environs = malloc(sizeof(char *) * (i + 2));
 	if (environs == NULL)
 	{
-		print_error(vars, NULL);
+		std_error(vars, NULL);
 		vars->status = 127;
 		new_exit(vars);
 	}
@@ -25,11 +25,11 @@ void add_keys(vars_t *vars)
 	environs[i] = add_value(vars->av[1], vars->av[2]);
 	if (environs[i] == NULL)
 	{
-		print_error(vars, NULL);
+		std_error(vars, NULL);
 		free(vars->buffer);
 		free(vars->commands);
 		free(vars->av);
-		free_env(vars->env);
+		rel_env_mode(vars->env);
 		free(environs);
 		exit(127);
 	}

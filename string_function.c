@@ -10,7 +10,7 @@ ssize_t my_putstr(char *str)
 {
 	ssize_t number, lenght;
 
-	number = _strlen(str);
+	number = str_len(str);
 	lenght = write(STDOUT_FILENO, str, number);
 	if (lenght != number)
 	{

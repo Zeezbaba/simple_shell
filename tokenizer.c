@@ -20,12 +20,12 @@ char **str_tokens(char *buffer, char *delimiter)
 		perror("Error!");
 		return (NULL);
 	}
-	while ((tokens[j] = new_strtok(buffer, delimiter)) != NULL)
+	while ((tokens[j] = my_strtok(buffer, delimiter)) != NULL)
 	{
 		j++;
 		if (j == array)
 		{
-			tokens = _realloc(tokens, &array);
+			tokens = mem_realloc(tokens, &array);
 			if (tokens == NULL)
 			{
 				perror("Error!");

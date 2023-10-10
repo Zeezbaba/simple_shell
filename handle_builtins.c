@@ -41,7 +41,7 @@ void new_exit(vars_t *vars)
 		if (status == -1)
 		{
 			vars->status = 2;
-			print_error(vars, ": Illegal number: ");
+			std_error(vars, ": Illegal number: ");
 			_puts2(vars->av[1]);
 			_puts2("\n");
 			free(vars->commands);
@@ -53,7 +53,7 @@ void new_exit(vars_t *vars)
 	free(vars->buffer);
 	free(vars->av);
 	free(vars->commands);
-	free_env(vars->env);
+	rel_env_mode(vars->env);
 	exit(vars->status);
 }
 
@@ -87,7 +87,7 @@ void new_setenv(vars_t *vars)
 
 	if (vars->av[1] == NULL || vars->av[2] == NULL)
 	{
-		print_error(vars, ": Incorrect number of arguments\n");
+		std_error(vars, ": Incorrect number of arguments\n");
 		vars->status = 2;
 		return;
 	}
@@ -99,11 +99,11 @@ void new_setenv(vars_t *vars)
 		var = add_value(vars->av[1], vars->av[2]);
 		if (var == NULL)
 		{
-			print_error(vars, NULL);
+			std_error(vars, NULL);
 			free(vars->buffer);
 			free(vars->commands);
 			free(vars->av);
-			free_env(vars->env);
+			rel_env_mode(vars->env);
 			exit(127);
 		}
 		free(*key);
@@ -126,14 +126,14 @@ void new_unsetenv(vars_t *vars)
 
 	if (vars->av[1] == NULL)
 	{
-		print_error(vars, ": Incorrect number of arguments\n");
+		std_error(vars, ": Incorrect number of arguments\n");
 		vars->status = 2;
 		return;
 	}
 	key = env_func(vars->env, vars->av[1]);
 	if (key == NULL)
 	{
-		print_error(vars, ": No variable to unset");
+		std_error(vars, ": No variable to unset");
 		return;
 	}
 	for (i = 0; vars->env[i] != NULL; i++)
@@ -141,7 +141,7 @@ void new_unsetenv(vars_t *vars)
 	newenv = malloc(sizeof(char *) * i);
 	if (newenv == NULL)
 	{
-		print_error(vars, NULL);
+		std_error(vars, NULL);
 		vars->status = 127;
 		new_exit(vars);
 	}
