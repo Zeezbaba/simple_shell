@@ -86,7 +86,7 @@ void check_path_command(vars_t *vars)
 		if (my_path != NULL)
 		{
 			my_path_cpy = _strdup(my_path + 5);
-			my_path_tokens = tokenize(my_path_cpy, ":");
+			my_path_tokens = str_token(my_path_cpy, ":");
 			for (x = 0; my_path_tokens && my_path_tokens[x]; x++, free(search))
 			{
 				search = _strcat(my_path_tokens[x], vars->av[0]);

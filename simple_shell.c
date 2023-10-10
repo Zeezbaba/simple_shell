@@ -42,10 +42,10 @@ int main(int argc __attribute__((unused)), char **argv, char **environment)
 	{
 		sig_flag = 1;
 		vars.count++;
-		vars.commands = tokenize(vars.buffer, ";");
+		vars.commands = str_token(vars.buffer, ";");
 		for (a = 0; vars.commands && vars.commands[a] != NULL; a++)
 		{
-			vars.av = tokenize(vars.commands[a], "\n \t\r");
+			vars.av = str_token(vars.commands[a], "\n \t\r");
 			if (vars.av && vars.av[0])
 				if (check_for_builtins(&vars) == NULL)
 					check_for_path(&vars);

@@ -37,7 +37,7 @@ void _puts2(char *str)
 {
 	ssize_t digit, len;
 
-	digit = _strlen(str);
+	digit = str_len(str);
 	len = write(STDERR_FILENO, str, digit);
 	if (len != digit)
 	{

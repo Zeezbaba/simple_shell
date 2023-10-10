@@ -65,7 +65,7 @@ void _env(vars_t *vars);
 void new_setenv(vars_t *vars);
 void new_unsetenv(vars_t *vars);
 
-void add_key(vars_t *vars);
+void add_keys(vars_t *vars);
 char **env_func(char **env, char *key);
 char *add_value(char *key, char *value);
 int _atoi(char *str);
