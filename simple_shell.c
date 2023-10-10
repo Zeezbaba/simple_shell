@@ -28,7 +28,7 @@ int main(int argc __attribute__((unused)), char **argv, char **environment)
 {
 	size_t len_buffer = 0;
 	unsigned int is_pipe = 0, a;
-	vars_t vars = {NULL, NULL, NULL, 0, NULL, 0, NULL NULL};
+	vars_t vars = {NULL, NULL, NULL, 0, NULL, 0, NULL, NULL};
 
 	vars.argv = argv;
 	vars.env = env_mode(environment);
@@ -55,11 +55,11 @@ int main(int argc __attribute__((unused)), char **argv, char **environment)
 		free(vars.commands);
 		sig_flag = 0;
 		if (is_pipe == 0)
-			_puts("$ ");
+			my_putstr("$ ");
 		vars.buffer = NULL;
 	}
 	if (is_pipe == 0)
-		_puts("\n");
+		my_putstr("\n");
 	rel_env_mode(vars.env);
 	free(vars.buffer);
 	exit(vars.status);
