@@ -26,7 +26,7 @@ char **env_mode(char **env)
 	}
 
 	for (z = 0; env[z] != NULL; z++)
-		nc_env[i] = str_dup(env[z]);
+		nc_env[z] = str_dup(env[z]);
 	nc_env[z] = NULL;
 
 	return (nc_env);

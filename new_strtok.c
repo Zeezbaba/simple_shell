@@ -48,7 +48,7 @@ char *my_strtok(char *str, const char *delim)
 		current_token = NULL;
 		return (NULL);
 	}
-	token_init = current_token + i;
+	token_init = current_token + a;
 	current_token = token_init;
 	for (a = 0; current_token[a] != '\0'; a++)
 	{

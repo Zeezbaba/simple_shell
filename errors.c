@@ -11,10 +11,12 @@
 void std_error(vars_t *vars, char *msg)
 {
 	char *lineNumberStr;
+	int lineNumber;
 
 	_puts2(vars->argv[0]);
 	_puts2(": ");
-	lineNumberStr = _uitoa(vars->lineNumberStr);
+	lineNumber = atoi(vars->lineNumberStr);
+	lineNumberStr = _uitoa(lineNumber);
 	_puts2(lineNumberStr);
 	free(lineNumberStr);
 	_puts2(": ");

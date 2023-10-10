@@ -15,11 +15,11 @@ int my_path_exec(char *command, vars_t *vars)
 	{
 		child_pid = fork();
 		if (child_pid == -1)
-			print_error(vars, NULL);
+			std_error(vars, NULL);
 		if (child_pid == 0)
 		{
 			if (execve(command, vars->av, vars->env) == -1)
-				print_error(vars, NULL);
+				std_error(vars, NULL);
 		}
 		else
 		{
@@ -35,7 +35,7 @@ int my_path_exec(char *command, vars_t *vars)
 	}
 	else
 	{
-		print_error(vars, ": Permission denied\n");
+		std_error(vars, ": Permission denied\n");
 		vars->status = 126;
 	}
 	return (0);
@@ -78,18 +78,18 @@ void check_path_command(vars_t *vars)
 	char **my_path_tokens;
 	struct stat buf;
 
-	if (check_for_dir(vars->av[0]))
-		y = execute_cwd(vars);
+	if (my_path_dir(vars->av[0]))
+		y = cwd_exec(vars);
 	else
 	{
 		my_path = find_my_path(vars->env);
 		if (my_path != NULL)
 		{
-			my_path_cpy = _strdup(my_path + 5);
+			my_path_cpy = str_dup(my_path + 5);
 			my_path_tokens = str_tokens(my_path_cpy, ":");
 			for (x = 0; my_path_tokens && my_path_tokens[x]; x++, free(search))
 			{
-				search = _strcat(my_path_tokens[x], vars->av[0]);
+				search = str_cat(my_path_tokens[x], vars->av[0]);
 				if (stat(search, &buf) == 0)
 				{
 					y = my_path_exec(search, vars);
@@ -106,7 +106,7 @@ void check_path_command(vars_t *vars)
 		}
 		if (my_path == NULL || my_path_tokens[x] == NULL)
 		{
-			print_error(vars, ": not found\n");
+			std_error(vars, ": not found\n");
 			vars->status = 127;
 		}
 		free(my_path_tokens);
@@ -134,11 +134,11 @@ int cwd_exec(vars_t *vars)
 		{
 			child_pid = fork();
 			if (child_pid == -1)
-				print_error(vars, NULL);
+				std_error(vars, NULL);
 			if (child_pid == 0)
 			{
 				if (execve(vars->av[0], vars->av, vars->env) == -1)
-					print_error(vars, NULL);
+					std_error(vars, NULL);
 			}
 			else
 			{
@@ -154,12 +154,12 @@ int cwd_exec(vars_t *vars)
 		}
 		else
 		{
-			print_error(vars, ": Permission denied\n");
+			std_error(vars, ": Permission denied\n");
 			vars->status = 126;
 		}
 			return (0);
 	}
-	print_error(vars, ": not found\n");
+	std_error(vars, ": not found\n");
 	vars->status = 127;
 	return (0);
 }

@@ -30,6 +30,7 @@ typedef struct variables
 	char **argv;
 	int status;
 	char **commands;
+	char *lineNumberStr;
 } vars_t;
 
 /**
