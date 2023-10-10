@@ -13,29 +13,29 @@ void std_error(vars_t *vars, char *msg)
 	char *lineNumberStr;
 	int lineNumber;
 
-	_puts2(vars->argv[0]);
-	_puts2(": ");
+	printstdo(vars->argv[0]);
+	printstdo(": ");
 	lineNumber = atoi(vars->lineNumberStr);
 	lineNumberStr = _uitoa(lineNumber);
-	_puts2(lineNumberStr);
+	printstdo(lineNumberStr);
 	free(lineNumberStr);
-	_puts2(": ");
-	_puts2(vars->av[0]);
+	printstdo(": ");
+	printstdo(vars->av[0]);
 	if (msg)
 	{
-		_puts2(msg);
+		printstdo(msg);
 	}
 	else
 		perror("");
 }
 
 /**
- * _puts2 - string output to standard error
+ * printstdo - string output to standard error
  * @str: string output
  *
  * Return: void
  */
-void _puts2(char *str)
+void printstdo(char *str)
 {
 	ssize_t digit, len;
 
