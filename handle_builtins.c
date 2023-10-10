@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * check_for_builtins - checks if the command is a builtin
+ * builtins_check - checks if the command is a builtin
  * @vars: variables
  * Return: pointer to the function or NULL
  */
@@ -68,8 +68,8 @@ void _env(vars_t *vars)
 
 	for (i = 0; vars->env[i]; i++)
 	{
-		_puts(vars->env[i]);
-		_puts("\n");
+		my_putstr(vars->env[i]);
+		my_putstr("\n");
 	}
 	vars->status = 0;
 }
@@ -91,9 +91,9 @@ void new_setenv(vars_t *vars)
 		vars->status = 2;
 		return;
 	}
-	key = find_key(vars->env, vars->av[1]);
+	key = env_func(vars->env, vars->av[1]);
 	if (key == NULL)
-		add_key(vars);
+		add_keys(vars);
 	else
 	{
 		var = add_value(vars->av[1], vars->av[2]);
@@ -130,7 +130,7 @@ void new_unsetenv(vars_t *vars)
 		vars->status = 2;
 		return;
 	}
-	key = find_key(vars->env, vars->av[1]);
+	key = env_func(vars->env, vars->av[1]);
 	if (key == NULL)
 	{
 		print_error(vars, ": No variable to unset");

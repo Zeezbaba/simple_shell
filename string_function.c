@@ -1,12 +1,12 @@
 #include "shell.h"
 
 /**
- * _putchar - writes a string to standard output
+ * my_putstr - writes a string to standard output
  * @str: string to write
  *
  * Return: number of chars printed or -1 on failure
  */
-ssize_t _putchar(char *str)
+ssize_t my_putstr(char *str)
 {
 	ssize_t number, lenght;
 
