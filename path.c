@@ -66,7 +66,7 @@ char *find_my_path(char **env)
 }
 
 /**
- * check_for_my_path - checks if the command is in the PATH
+ * check_path_command - checks if the command is in the PATH
  * @vars: variables
  *
  * Return: void
@@ -86,7 +86,7 @@ void check_path_command(vars_t *vars)
 		if (my_path != NULL)
 		{
 			my_path_cpy = _strdup(my_path + 5);
-			my_path_tokens = str_token(my_path_cpy, ":");
+			my_path_tokens = str_tokens(my_path_cpy, ":");
 			for (x = 0; my_path_tokens && my_path_tokens[x]; x++, free(search))
 			{
 				search = _strcat(my_path_tokens[x], vars->av[0]);
