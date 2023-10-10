@@ -28,15 +28,15 @@ int main(int argc __attribute__((unused)), char **argv, char **environment)
 {
 	size_t len_buffer = 0;
 	unsigned int is_pipe = 0, a;
-	vars_t vars = {NULL, NULL, NULL, 0, NULL, 0, NULL};
+	vars_t vars = {NULL, NULL, NULL, 0, NULL, 0, NULL NULL};
 
 	vars.argv = argv;
-	vars.env = make_env(environment);
+	vars.env = env_mode(environment);
 	signal(SIGINT, sig_handler);
 	if (!isatty(STDIN_FILENO))
 		is_pipe = 1;
 	if (is_pipe == 0)
-		_puts("$ ");
+		my_putstr("$ ");
 	sig_flag = 0;
 	while (getline(&(vars.buffer), &len_buffer, stdin) != -1)
 	{
@@ -47,8 +47,8 @@ int main(int argc __attribute__((unused)), char **argv, char **environment)
 		{
 			vars.av = str_tokens(vars.commands[a], "\n \t\r");
 			if (vars.av && vars.av[0])
-				if (check_for_builtins(&vars) == NULL)
-					check_for_path(&vars);
+				if (builtins_check(&vars) == NULL)
+					check_path_command(&vars);
 		free(vars.av);
 		}
 		free(vars.buffer);
@@ -60,7 +60,7 @@ int main(int argc __attribute__((unused)), char **argv, char **environment)
 	}
 	if (is_pipe == 0)
 		_puts("\n");
-	free_env(vars.env);
+	rel_env_mode(vars.env);
 	free(vars.buffer);
 	exit(vars.status);
 }

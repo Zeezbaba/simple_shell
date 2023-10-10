@@ -83,4 +83,8 @@ void std_error(vars_t *vars, char *msg);
 void _puts2(char *str);
 char *_uitoa(unsigned int count);
 
+/* global variable for handling ^C */
+unsigned int sig_flag;
+
+
 #endif /* _SHELL_H_ */
