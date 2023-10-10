@@ -10,4 +10,4 @@ Limited functionality.
 
 # Contributors
 Okeleji Azeez,
-Agboola Ayokanmi
+Agboola Ayokanmi.
