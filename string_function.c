@@ -21,33 +21,33 @@ ssize_t my_putstr(char *str)
 }
 
 /**
- * *str_dup - returns pointer to new mem alloc space which contains copy
+ * *str_dup - duplicates a string
  * @strdp: string to be duplicated
  * Return: a pointer to the new duplicated string
  */
 char *str_dup(char *strdp)
 {
-	char *copy;
+	char *copycat;
 
-		int lenght, i;
+		int lenght, init;
 
 	if (strdp == 0)
 		return (NULL);
 
 	for (lenght = 0; strdp[lenght]; lenght++)
 		;
-	copy = malloc((lenght + 1) * sizeof(char));
+	copycat = malloc((lenght + 1) * sizeof(char));
 
-	for (i = 0; i <= lenght; i++)
-		copy[i] = strdp[i];
+	for (init = 0; init <= lenght; init++)
+		copycat[init] = strdp[init];
 
-	return (copy);
+	return (copycat);
 }
 
 /**
  * str_cmpr - compares two strings
- * @strcmp1: first string, of two, to be compared in length
- * @strcmp2: second string, of two, to be compared
+ * @strcmp1: first string
+ * @strcmp2: second string
  * Return: 0 on success, anything else is a failure
  */
 int str_cmpr(char *strcmp1, char *strcmp2)
@@ -73,7 +73,7 @@ int str_cmpr(char *strcmp1, char *strcmp2)
 char *str_cat(char *strct1, char *strct2)
 {
 	char *newstr;
-	unsigned int lenght1, lenght2, newlen, i, j;
+	unsigned int lenght1, lenght2, newlenght, i, j;
 
 	lenght1 = 0;
 	lenght2 = 0;
@@ -91,8 +91,8 @@ char *str_cat(char *strct1, char *strct2)
 		for (lenght2 = 0; strct2[lenght2]; lenght2++)
 			;
 	}
-	newlen = lenght1 + lenght2 + 2;
-	newstr = malloc(newlen * sizeof(char));
+	newlenght = lenght1 + lenght2 + 2;
+	newstr = malloc(newlenght * sizeof(char));
 	if (newstr == NULL)
 		return (NULL);
 	for (i = 0; i < lenght1; i++)
@@ -105,7 +105,7 @@ char *str_cat(char *strct1, char *strct2)
 }
 
 /**
- * str_len - returns the length of a string
+ * str_len - function to check lenght of string
  * @str: string to be measured
  * Return: length of string
  */

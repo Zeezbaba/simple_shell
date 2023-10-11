@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * **str_tokens - tokenizes a buffer with a delimiter
+ * **str_tokens - tokenizes a buffer
  * @buffer: buffer to tokenize
  * @delimiter: delimiter to tokenize
  *

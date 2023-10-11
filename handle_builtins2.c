@@ -1,10 +1,10 @@
 #include "shell.h"
 
 /**
- * add_keys - create a new environment variable
+ * add_keys - add new variable
  * @vars: pointer to struct of variables
  *
- * Return: void
+ * Return: nothing
  */
 void add_keys(vars_t *vars)
 {
@@ -39,80 +39,80 @@ void add_keys(vars_t *vars)
 }
 
 /**
- * env_func - finds an environment variable
+ * env_func - function to locate a variable
  * @env: array of environment variables
- * @key: environment variable to find
+ * @key: seached variable
  *
  * Return: pointer to address of the environment variable
  */
 char **env_func(char **env, char *key)
 {
-	unsigned int i, j, lenght;
+	unsigned int init, n, lenght;
 
 	lenght = str_len(key);
-	for (i = 0; env[i] != NULL; i++)
+	for (init = 0; env[init] != NULL; init++)
 	{
-		for (j = 0; j < lenght; j++)
-			if (key[j] != env[i][j])
+		for (n = 0; n < lenght; n++)
+			if (key[n] != env[init][n])
 				break;
-		if (j == lenght && env[i][j] == '=')
-			return (&env[i]);
+		if (n == lenght && env[init][n] == '=')
+			return (&env[init]);
 	}
 	return (NULL);
 }
 
 /**
- * add_value - create a new environment variable string
+ * add_value - add new variable string
  * @key: variable name
- * @value: variable value
+ * @value: value
  *
  * Return: pointer to the new string;
  */
 char *add_value(char *key, char *value)
 {
 	unsigned int lenght1, lenght2, i, j;
-	char *new;
+	char *addnew;
 
 	lenght1 = str_len(key);
 	lenght2 = str_len(value);
-	new = malloc(sizeof(char) * (lenght1 + lenght2 + 2));
-	if (new == NULL)
+	addnew = malloc(sizeof(char) * (lenght1 + lenght2 + 2));
+	if (addnew == NULL)
 		return (NULL);
 	for (i = 0; key[i] != '\0'; i++)
-		new[i] = key[i];
-	new[i] = '=';
+		addnew[i] = key[i];
+	addnew[i] = '=';
 	for (j = 0; value[j] != '\0'; j++)
-		new[i + 1 + j] = value[j];
-	new[i + 1 + j] = '\0';
-	return (new);
+		addnew[i + 1 + j] = value[j];
+	addnew[i + 1 + j] = '\0';
+	return (addnew);
 }
 
 /**
- * _atoi - converts a string into an integer
+ * _atoi - function converts string to an integer
  * @str: string to convert
  *
  * Return: the integer value, or -1 if an error occurs
  */
 int _atoi(char *str)
 {
-	unsigned int i, digits;
-	int num = 0, num_test;
+	unsigned int n, integer;
+	int number = 0, num_test;
 
 	num_test = INT_MAX;
-	for (digits = 0; num_test != 0; digits++)
+	for (integer = 0; num_test != 0; integer++)
 		num_test /= 10;
-	for (i = 0; str[i] != '\0' && i < digits; i++)
+	for (n = 0; str[n] != '\0' && n < integer; n++)
 	{
-		num *= 10;
-		if (str[i] < '0' || str[i] > '9')
+		number *= 10;
+		if (str[n] < '0' || str[n] > '9')
 			return (-1);
-		if ((i == digits - 1) && (str[i] - '0' > INT_MAX % 10))
+		if ((n == integer - 1) && (str[n] - '0' > INT_MAX % 10))
 			return (-1);
-		num += str[i] - '0';
-		if ((i == digits - 2) && (str[i + 1] != '\0') && (num > INT_MAX / 10))
+		number += str[n] - '0';
+		if ((n == integer - 2) && (str[n + 1] != '\0') && (number > INT_MAX / 10))
 			return (-1);
 	}
-	if (i > digits)
+	if (n > integer)
 		return (-1);
-	return (num);
+	return (number);
 }

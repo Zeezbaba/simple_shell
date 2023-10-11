@@ -1,14 +1,14 @@
 #include "shell.h"
 
 /**
- * builtins_check - checks if the command is a builtin
+ * builtins_check - functions that checks builtin command
  * @vars: variables
  * Return: pointer to the function or NULL
  */
 void (*builtins_check(vars_t *vars))(vars_t *vars)
 {
 	unsigned int k;
-	builtins_t check[] = {
+	builtins_t arrays[] = {
 		{"exit", new_exit},
 		{"env", _env},
 		{"setenv", new_setenv},
@@ -16,20 +16,20 @@ void (*builtins_check(vars_t *vars))(vars_t *vars)
 		{NULL, NULL}
 	};
 
-	for (k = 0; check[k].f != NULL; k++)
+	for (k = 0; arrays[k].f != NULL; k++)
 	{
-		if (str_cmpr(vars->av[0], check[k].name) == 0)
+		if (str_cmpr(vars->av[0], arrays[k].name) == 0)
 			break;
 	}
-	if (check[k].f != NULL)
-		check[k].f(vars);
-	return (check[k].f);
+	if (arrays[k].f != NULL)
+		arrays[k].f(vars);
+	return (arrays[k].f);
 }
 
 /**
- * new_exit - exit program
+ * new_exit - function to exit a program
  * @vars: variables
- * Return: void
+ * Return: nothing
  */
 void new_exit(vars_t *vars)
 {
@@ -42,8 +42,8 @@ void new_exit(vars_t *vars)
 		{
 			vars->status = 2;
 			std_error(vars, ": Illegal number: ");
-			_puts2(vars->av[1]);
-			_puts2("\n");
+			printstdo(vars->av[1]);
+			printstdo("\n");
 			free(vars->commands);
 			vars->commands = NULL;
 			return;
@@ -58,27 +58,27 @@ void new_exit(vars_t *vars)
 }
 
 /**
- * _env - prints the current environment
- * @vars: struct of variables
- * Return: void.
+ * _env - functions to print environment
+ * @vars: variables
+ * Return: nothing.
  */
 void _env(vars_t *vars)
 {
-	unsigned int i;
+	unsigned int zeez;
 
-	for (i = 0; vars->env[i]; i++)
+	for (zeez = 0; vars->env[zeez]; zeez++)
 	{
-		my_putstr(vars->env[i]);
+		my_putstr(vars->env[zeez]);
 		my_putstr("\n");
 	}
 	vars->status = 0;
 }
 
 /**
- * new_setenv - create a new environment variable, or edit an existing variable
- * @vars: pointer to struct of variables
+ * new_setenv - function to create or edit variables
+ * @vars: pointer to variables
  *
- * Return: void
+ * Return: nothing
  */
 void new_setenv(vars_t *vars)
 {
@@ -113,45 +113,45 @@ void new_setenv(vars_t *vars)
 }
 
 /**
- * new_unsetenv - remove an environment variable
+ * new_unsetenv - function that remove environment variable
  * @vars: pointer to a struct of variables
  *
- * Return: void
+ * Return: nothing
  */
 void new_unsetenv(vars_t *vars)
 {
-	char **key, **newenv;
+	char **keys, **environs;
 
-	unsigned int i, j;
+	unsigned int f, k;
 
 	if (vars->av[1] == NULL)
 	{
-		std_error(vars, ": Incorrect number of arguments\n");
+		std_error(vars, ": Incorrect inputs\n");
 		vars->status = 2;
 		return;
 	}
-	key = env_func(vars->env, vars->av[1]);
-	if (key == NULL)
+	keys = env_func(vars->env, vars->av[1]);
+	if (keys == NULL)
 	{
-		std_error(vars, ": No variable to unset");
+		std_error(vars, ": empty variable");
 		return;
 	}
-	for (i = 0; vars->env[i] != NULL; i++)
+	for (f = 0; vars->env[f] != NULL; f++)
 		;
-	newenv = malloc(sizeof(char *) * i);
-	if (newenv == NULL)
+	environs = malloc(sizeof(char *) * f);
+	if (environs == NULL)
 	{
 		std_error(vars, NULL);
 		vars->status = 127;
 		new_exit(vars);
 	}
-	for (i = 0; vars->env[i] != *key; i++)
-		newenv[i] = vars->env[i];
-	for (j = i + 1; vars->env[j] != NULL; j++, i++)
-		newenv[i] = vars->env[j];
-	newenv[i] = NULL;
-	free(*key);
+	for (f = 0; vars->env[f] != *keys; f++)
+		environs[f] = vars->env[f];
+	for (k = f + 1; vars->env[k] != NULL; k++, f++)
+		environs[f] = vars->env[k];
+	environs[f] = NULL;
+	free(*keys);
 	free(vars->env);
-	vars->env = newenv;
+	vars->env = environs;
 	vars->status = 0;
 }

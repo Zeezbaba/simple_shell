@@ -1,8 +1,8 @@
 #include "shell.h"
 
 /**
- * **mem_realloc - reallocates a pointer to double the space
- * @ptr: pointer to the old array
+ * **mem_realloc - function to reallocates a pointer
+ * @ptr: old array pointer
  * @mem: pointer to number of elements in the old array
  *
  * Return: pointer to the new array
